@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+//Comunicación cliente-servidorPrincipal (login(), logout(), buscar(), indexar())
+
+service Principal{
+    rpc Login(Credenciales) returns (Confirmacion){}
+    rpc Logout(Solicitud) returns (Confirmacion){}
+    rpc Indexar(ArchivosPeer) returns (Confirmacion){}
+    rpc Buscar(SolicitudBusqueda) returns (PeerPosesor){}
+}
+
+message Credenciales{
+    string usuarioPeer = 1;
+    string contraPeer = 2;
+    string nombrePeer = 3;
+    int32 puerto = 4;
+    string hostname = 5;
+}
+
+message Confirmacion{
+    string respuesta = 1;
+}
+
+message ArchivosPeer{
+    repeated string archivos = 1;
+    string nombrePeer = 2;
+}
+
+message Solicitud{
+    string peticion = 1;
+    string nombrePeer = 2;
+}
+
+message SolicitudBusqueda{
+    string peticion = 1;
+    string nombreArchivo = 2;
+}
+
+message PeerPosesor{
+    string peer = 1;
+    int32 puerto = 2;
+    string host_name = 3;
+}

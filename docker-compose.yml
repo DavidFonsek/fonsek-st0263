@@ -1,0 +1,81 @@
+version: "3.6"
+services:
+  server:
+    image: p2p:latest
+    build: .
+    volumes:
+      - ./:/usr/src/app/
+    command:
+      - python
+      - server/server.py
+    expose:
+      - 8080:8080
+
+
+  peer1:
+    image: p2p:latest
+    build: .
+    volumes:
+      - ./:/usr/src/app/
+    command:
+      - python
+      - peer/peer.py
+      - boostrap1
+    expose:
+      - 8081:8081
+    stdin_open: true
+    tty: true
+    environment:
+      HOST_GRPC: 'server:8080'
+      HOST_NAME: 'peer1'
+
+  peer2:
+    image: p2p:latest
+    build: .
+    volumes:
+      - ./:/usr/src/app/
+    command:
+      - python
+      - peer/peer.py
+      - boostrap2
+    expose:
+      - 8082:8082
+    stdin_open: true
+    tty: true
+    environment:
+      HOST_GRPC: 'server:8080'
+      HOST_NAME: 'peer2'
+
+  peer3:
+    image: p2p:latest
+    build: .
+    volumes:
+      - ./:/usr/src/app/
+    command:
+      - python
+      - peer/peer.py
+      - boostrap3
+    expose:
+      - 8083:8083
+    stdin_open: true
+    tty: true
+    environment:
+      HOST_GRPC: 'server:8080'
+      HOST_NAME: 'peer3'
+
+  peer4:
+    image: p2p:latest
+    build: .
+    volumes:
+      - ./:/usr/src/app/
+    command:
+      - python
+      - peer/peer.py
+      - boostrap4
+    expose:
+      - 8084:8084
+    stdin_open: true
+    tty: true
+    environment:
+      HOST_GRPC: 'server:8080'
+      HOST_NAME: 'peer4'
